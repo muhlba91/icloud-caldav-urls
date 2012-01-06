@@ -63,5 +63,5 @@ So, here is the download:
 Copyright notices
 -----------------
 
-This script is copyright (C) 2011 by NiftySide - Daniel Mühlbachler (http://www.niftyside.com).
+This script is copyright (C) 2011-2012 by NiftySide - Daniel Mühlbachler (http://www.niftyside.com).
 iCloud is a service and is provided by Apple, Inc. (http://www.apple.com)
