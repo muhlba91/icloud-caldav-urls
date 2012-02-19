@@ -27,7 +27,7 @@ With that bundle it is really easy to get the script running:
         Windows: double click on apache_start.bat or open xampp-control.exe and start Apache by clicking on the appropriate button
         Linux: please read through the XAMPP documentation - but I think that you just need to run lampp
         Mac: open XAMPP Controll.app and click on the appropriate button to start Apache
-    Point you browser to: http://localhost/icloud/icloud.php.
+    Point you browser to: http://localhost/icoud.php (if this does not work just try http://localhost/icloud/icloud.php!).
     Fill in the form and click on Evaluate.
     Copy the URLs you need and stop Apache again.
 
@@ -55,6 +55,7 @@ Additionally, I want to refer you to the appropriate blog post (http://blog.mueh
 
 So, here is the download:
 
+    Git repository: https://github.com/muhlba91/icloud
     .tar.gz/.tgz: http://icloud.niftyside.com/icloud.tgz
     .zip: http://icloud.niftyside.com/icloud.zip
 
