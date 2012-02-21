@@ -196,7 +196,8 @@
 	{
 ?>
 		<br>
-        &nbsp;&nbsp;&nbsp;<i>Please provide your login credentials first.</i>
+        &nbsp;&nbsp;&nbsp;<i>Please provide your login credentials first.</i><br><br>
+        &nbsp;&nbsp;&nbsp;<b><u>Note:</u></b> if you are reaching this site publicly and are not the publisher, please send the corresponding URL to <a href="http://www.niftyside.com/cms/contact/" target="_blank">NiftySide</a>! <i>Thank you!</i>
 <?php
 	}
 ?>

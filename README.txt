@@ -45,11 +45,12 @@ Please note that you can use the servers p01 to p08 if you want! (I added a sele
 Download and restrictions
 -------------------------
 
-First of all, I want to list some restrictions:
+First of all, due to legal issues with Apple I need to prohibit:
 
-    You are not allowed to make the script or the download archive publicly available or to republish them.
+    You are not allowed to make the script or the download archive publicly available or to republish it.
     You are not allowed to modify any of the files.
     You are only allowed to use it for your personal use on your only locally reachable server. (localhost)
+       A simple workaround for this could be that you use htaccess to ask, for example, for a password (please use Google).
 
 Additionally, I want to refer you to the appropriate blog post (http://blog.muehlbachler.org/2011/08/how-to-icloud-calendars-with-third-party-software/) where I will post updates if there are any.
 
