@@ -3,14 +3,51 @@ How does this work?
 -------------------
 
 Because of some phishing related issues with Apple I decided to not host the script anymore.
-As a matter of fact, you have to run it on your own and I will provide you a short howto on how you can do this easily. 
+As a matter of fact, you have to run it on your own and I will provide you a short howto on how you can do this easily.
+Adcditionally, I also made a simple Java application.
 
 If this script helps you, please consider at least a small donation (https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JVTUEYXWG76MA). Thank you for your support!
 
 
-----------------------------------------
-How can you run this script on your own?
-----------------------------------------
+------------
+Side effects
+------------
+
+Before providing you the download links I want to tell you one interesting side effect I was notified about.
+If you want to use the iCloud CardDAV (address book) service with third-party clients it should work if you just use the principal URL with the appropriate iCloud server: https://p01-contacts.icloud.com/<PRINCIPAL_URL>.
+Please note that you can use the servers p01 to p08 if you want! (I added a select field in the script for that.) 
+
+
+-------------------------
+Download and restrictions
+-------------------------
+
+First of all, due to legal issues with Apple I need to prohibit:
+
+    You are not allowed to make the script, the application or anything else publicly available or to republish them.
+    You are not allowed to modify any of the files and/or source code.
+    Regarding PHP version: You are only allowed to use it for your personal use on your only locally reachable server. (localhost)
+       A simple workaround for this could be that you use htaccess to ask, for example, for a password (please use Google).
+
+Additionally, I want to refer you to the appropriate blog post (http://blog.muehlbachler.org/2011/08/how-to-icloud-calendars-with-third-party-software/) where I will post updates if there are any.
+
+So, here is the download:
+
+    Git repository: https://github.com/muhlba91/icloud
+    Java version: http://icloud.niftyside.com/icloud.jar, http://icloud.niftyside.com/icloud-src.tgz, http://icloud.niftyside.com/icloud-src.zip
+    PHP .tar.gz/.tgz: http://icloud.niftyside.com/icloud.tgz
+    PHP .zip: http://icloud.niftyside.com/icloud.zip
+
+Instructions for the Java version:
+
+    download the jar file and either open it by double-clicking on it - if it does not work, type java -jar icloud.jar into your console/command line
+    download the source and compile it on your own
+
+
+
+-------------------------------------------
+How can you run the PHP script on your own?
+-------------------------------------------
 
 At first, you need a working webserver with PHP and cURL.
 The easiest way to get this is the XAMPP project (http://www.apachefriends.org/de/xampp.html). There you can download an Apache/MySQL and PHP bundle for your Windows, Mac or Linux computer.
@@ -30,35 +67,6 @@ With that bundle it is really easy to get the script running:
     Point you browser to: http://localhost/icoud.php (if this does not work just try http://localhost/icloud/icloud.php!).
     Fill in the form and click on Evaluate.
     Copy the URLs you need and stop Apache again.
-
-
-------------
-Side effects
-------------
-
-Before providing you the download links I want to tell you one interesting side effect I was notified about.
-If you want to use the iCloud CardDAV (address book) service with third-party clients it should work if you just use the principal URL with the appropriate iCloud server: https://p01-contacts.icloud.com/<PRINCIPAL_URL>.
-Please note that you can use the servers p01 to p08 if you want! (I added a select field in the script for that.) 
-
-
--------------------------
-Download and restrictions
--------------------------
-
-First of all, due to legal issues with Apple I need to prohibit:
-
-    You are not allowed to make the script or the download archive publicly available or to republish it.
-    You are not allowed to modify any of the files.
-    You are only allowed to use it for your personal use on your only locally reachable server. (localhost)
-       A simple workaround for this could be that you use htaccess to ask, for example, for a password (please use Google).
-
-Additionally, I want to refer you to the appropriate blog post (http://blog.muehlbachler.org/2011/08/how-to-icloud-calendars-with-third-party-software/) where I will post updates if there are any.
-
-So, here is the download:
-
-    Git repository: https://github.com/muhlba91/icloud
-    .tar.gz/.tgz: http://icloud.niftyside.com/icloud.tgz
-    .zip: http://icloud.niftyside.com/icloud.zip
 
 
 -----------------

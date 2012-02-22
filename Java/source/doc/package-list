@@ -1,0 +1,6 @@
+com.niftyside.icloud.calendars.app
+com.niftyside.icloud.calendars.app.events
+com.niftyside.icloud.calendars.app.listeners
+com.niftyside.icloud.calendars.app.views
+com.niftyside.icloud.calendars.exceptions
+com.niftyside.icloud.calendars.handlers
