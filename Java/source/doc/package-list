@@ -1,6 +1,10 @@
+com.niftyside.icloud.calendars.api
+com.niftyside.icloud.calendars.api.client
+com.niftyside.icloud.calendars.api.exception
+com.niftyside.icloud.calendars.api.impl
+com.niftyside.icloud.calendars.api.model
 com.niftyside.icloud.calendars.app
-com.niftyside.icloud.calendars.app.events
-com.niftyside.icloud.calendars.app.listeners
-com.niftyside.icloud.calendars.app.views
-com.niftyside.icloud.calendars.exceptions
-com.niftyside.icloud.calendars.handlers
+com.niftyside.icloud.calendars.app.gui.event
+com.niftyside.icloud.calendars.app.gui.listener
+com.niftyside.icloud.calendars.app.gui.model
+com.niftyside.icloud.calendars.app.gui.view

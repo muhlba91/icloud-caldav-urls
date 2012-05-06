@@ -23,7 +23,7 @@ Current versions
 ----------------
 
 PHP: v1.1
-Java: v1.0
+Java: v1.1
 
 
 -------------------------
@@ -49,7 +49,7 @@ So, here is the download:
 Instructions for the Java version:
 
     download the jar archive and open the containing jar file by either double-clicking on it - if it does not work, type java -jar icloud.jar into your console/command line
-    download the source and compile it on your own
+    download the source and compile it on your own (command line version and/or GUI version!)
 
 
 

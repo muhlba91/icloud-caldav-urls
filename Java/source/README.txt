@@ -23,7 +23,7 @@ Current versions
 ----------------
 
 PHP: v1.1
-Java: v1.0
+Java: v1.1
 
 
 -------------------------
@@ -42,14 +42,14 @@ Additionally, I want to refer you to the appropriate blog post (http://blog.mueh
 So, here is the download:
 
     Git repository: https://github.com/muhlba91/icloud
-    Java version: http://icloud.niftyside.com/icloud.jar, http://icloud.niftyside.com/icloud-src.tgz, http://icloud.niftyside.com/icloud-src.zip
+    Java version: http://icloud.niftyside.com/icloud_jar.tgz, http://icloud.niftyside.com/icloud_jar.zip, http://icloud.niftyside.com/icloud_java-src.tgz, http://icloud.niftyside.com/icloud_java-src.zip
     PHP .tar.gz/.tgz: http://icloud.niftyside.com/icloud.tgz
     PHP .zip: http://icloud.niftyside.com/icloud.zip
 
 Instructions for the Java version:
 
-    download the jar file and either open it by double-clicking on it - if it does not work, type java -jar icloud.jar into your console/command line
-    download the source and compile it on your own
+    download the jar archive and open the containing jar file by either double-clicking on it - if it does not work, type java -jar icloud.jar into your console/command line
+    download the source and compile it on your own (command line version and/or GUI version!)
 
 
 
