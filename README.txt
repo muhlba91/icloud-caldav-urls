@@ -15,6 +15,7 @@ Side effects
 
 Before providing you the download links I want to tell you one interesting side effect I was notified about.
 If you want to use the iCloud CardDAV (address book) service with third-party clients it should work if you just use the principal URL with the appropriate iCloud server: https://p01-contacts.icloud.com/<PRINCIPAL_URL>.
+For some clients you need to append /carddavhome/ or /carddavhome/card.
 Please note that you can use the servers p01 to p08 if you want! (I added a select field in the script for that.) 
 
 
