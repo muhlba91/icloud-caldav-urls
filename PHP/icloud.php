@@ -159,6 +159,9 @@
 			$entry["name"]=$cal->propstat[0]->prop[0]->displayname;
 			$calendars[]=$entry;
 		}
+
+		$cardserver = str_replace('caldav', 'contacts', $_POST['server']);
+		$cardurl = $cardserver."/".$userID."/carddavhome/card/";
 		
 		
 		//Output
@@ -175,6 +178,10 @@
 				<tr>
 					<td><b style='color:blue;'>Principal-URL: </b></td>
 					<td style='color:darkgreen;'>".$principal_url."</td>
+				</tr>
+				<tr>
+					<td><b style='color:blue;'>Contacts URL: </b></td>
+					<td style='color:darkgreen;'>".$cardurl."</td>
 				</tr>
 			</table><br>";
 		echo "<h1 style='color:darkred;'>Your calendars</h1>";
