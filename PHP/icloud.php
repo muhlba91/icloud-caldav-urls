@@ -46,6 +46,7 @@
 				color:#960;
 				text-decoration:none;
 			}
+			
 			a:hover, a:focus, #copy a:hover, #copy a:focus {
 				text-decoration:underline;
 				color:#300;
@@ -55,7 +56,6 @@
     <body onLoad="document.getElementById('appleID').focus();">
 <?php
 	//Define iCloud URLs
-	//define("ICLOUD_URL", "https://p01-caldav.icloud.com");
 	$icloudUrls = array();
 	for($i = 1; $i < 9; $i++)
 		$icloudUrls[] = "https://p0".$i."-caldav.icloud.com";
@@ -142,7 +142,6 @@
 		$userID=explode("/", $principal_url);
 		$userID=$userID[1];
 		
-		
 		//Get Calendars
 		$calendars_request="<A:propfind xmlns:A='DAV:'>
 								<A:prop>
@@ -160,9 +159,9 @@
 			$calendars[]=$entry;
 		}
 
+		//CardDAV URL
 		$cardserver = str_replace('caldav', 'contacts', $_POST['server']);
-		$cardurl = $cardserver."/".$userID."/carddavhome/card/";
-		
+		$cardurl = "/".$userID."/carddavhome/card/";
 		
 		//Output
 		echo "<h1 style='color:darkred;'>Your principal settings</h1>";
@@ -180,7 +179,7 @@
 					<td style='color:darkgreen;'>".$principal_url."</td>
 				</tr>
 				<tr>
-					<td><b style='color:blue;'>Contacts URL: </b></td>
+					<td><b style='color:blue;'>Contacts-URL: </b></td>
 					<td style='color:darkgreen;'>".$cardurl."</td>
 				</tr>
 			</table><br>";
@@ -210,7 +209,7 @@
 ?>
 		</div>
 		<div id="copy">
-        	<div>Version v1.1 ; Script copyright &copy; 2011-2012 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
+        	<div>Version v1.2 ; Script copyright &copy; 2011-2012 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
             &nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;
             <a href="http://www.icloud.com" target="_blank">iCloud</a> is a service provided by <a href="http://www.apple.com" target="_blank">Apple Inc.</a></div>
         </div>
