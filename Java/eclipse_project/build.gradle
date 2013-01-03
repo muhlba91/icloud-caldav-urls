@@ -1,0 +1,20 @@
+description = 'iCloud calendar URL fetcher'
+
+version = '1.2.1'
+
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+docsDirName = '../docs'
+mainClassName = 'com.niftyside.icloud.calendars.app.GUI'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'commons-codec:commons-codec:1.4'
+	compile 'commons-httpclient:commons-httpclient:3.1'
+	compile 'commons-logging:commons-logging:1.1.1'
+}
+

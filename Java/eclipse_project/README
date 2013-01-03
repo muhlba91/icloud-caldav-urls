@@ -1,0 +1,63 @@
+================================
+==  PURPOSE OF THIS SOFTWARE  ==
+================================
+
+This software provides a possibility to gather all CalDAV URLs for usage in third-party clients, like Mozilla Thunderbird.
+Additionally, it also provides the - in most cases - correct CardDAV URL.
+
+
+================
+==  DONATIONS ==
+================
+
+If this software helps you to achieve your goal please consider at least a small donation:
+  https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JVTUEYXWG76MA
+(Even a small amount helps financing the server and development costs. :-) )
+
+
+================================
+==  HOW TO RUN THIS SOFTWARE  ==
+================================
+
+This piece of software is provided as a fully working Eclipse project. In fact, it can simply be imported as an existing Eclipse project.
+Please note that before the project will work you have to run the appropriate Gradle task which downloads and adds all needed third-party libraries
+to the classpath. This should be done by using the following command:
+  "./gradlew(.bat) eclipse"
+
+Furthermore, Gradle provides a functionality to generate the Javadoc automatically
+(it will throw some warnings but they can be ignored without any problems);
+  "./gradlew(.bat) javadoc"
+
+Lastly, it is also possible to build the project and create a distribution zip file which will create the same zip file you can download
+from http://icloud.niftyside.com or the appropriate Github repository:
+  "./gradlew(.bat) build distZip"
+
+Side-note: it is always recommended to run "./gradlew(.bat) clean" or add the "clean" task to any other command to clean all old compiled files.
+
+
+=========================
+==  PROJECT STRUCTURE  ==
+=========================
+
+All Java source files are located in the soure folder "src/main/java".
+
+To achieve a working Gradle build it is also required to add all used resources (e.g. images) into the source folder "src/main/resources"
+according to the package structure of the main Java source folder. This means that resources are now located in two different source folders
+whereas they are needed in the main source folder to be able to run the project under Eclipse and the resources located in the resources folder
+are required to achieve a working Gradle distribution zip file.
+
+Moreover, if any JUnit test are added they will be located in the source folder "src/test/java".
+
+
+================
+==  COPYRIGHT ==
+================
+
+Please look at the file COPYRIGHT for further notices.
+
+
+=================
+==  CHANGELOG  ==
+=================
+
+Please look at the file CHANGELOG for further information.
