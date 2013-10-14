@@ -1,0 +1,29 @@
+description = 'iCloud calendar URL fetcher'
+
+version = '2.0.0'
+
+subprojects {
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	apply plugin: 'groovy'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		compile 'org.codehaus.groovy:groovy-all:+'
+		compile 'commons-logging:commons-logging:+'
+	}
+
+	task initProject(description: 'Initialize project') << {
+		task ->
+			task.project.sourceSets.each {
+				set ->
+					set.groovy.srcDirs.each {
+						println "Create $it"
+						it.mkdirs()
+					}
+			}
+	}
+}

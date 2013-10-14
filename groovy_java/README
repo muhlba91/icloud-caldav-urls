@@ -1,0 +1,40 @@
+================================
+==  PURPOSE OF THIS SOFTWARE  ==
+================================
+
+This software provides a possibility to gather all CalDAV URLs for usage in third-party clients, like Mozilla Thunderbird.
+Additionally, it also provides the - in most cases - correct CardDAV URL.
+
+
+================
+==  DONATIONS ==
+================
+
+If this software helps you to achieve your goal please consider at least a small donation:
+  https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JVTUEYXWG76MA
+(Even a small amount helps financing the server and development costs. :-) )
+
+
+=============
+==  USAGE  ==
+=============
+
+If you use the project itself please refer to its own README file!
+
+If you want to use the GUI application choose the distribution zip file named "gui-<VERSION>.zip":
+ * unzip it
+ * open a terminal/console/shell/... and navigate into the subfolder "bin"
+ * call "./gui(.bat)"
+
+If you want to use the command line application choose the distribution zip file named "cmdline-<VERSION>.zip":
+ * unzip it
+ * open a terminal/console/shell/... and navigate into the subfolder "bin"
+ * call "./cmdline(.bat) <APPLE_ID> <PASSWORD>"
+
+
+=============================
+==  COPYRIGHT / CHANGELOG  ==
+=============================
+
+Please look at the appropriate files within the project folder.
+

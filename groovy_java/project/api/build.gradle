@@ -1,0 +1,7 @@
+description = 'iCloud calendar URL fetcher - API'
+
+version = '2.0.0'
+
+dependencies {
+	compile 'org.apache.httpcomponents:httpclient:+'
+}

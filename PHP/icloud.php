@@ -209,13 +209,13 @@
 ?>
 		</div>
 		<div id="copy">
-        	<div>Version v1.2 ; Script copyright &copy; 2011-2012 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
+        	<div>Version v1.2 ; Script copyright &copy; 2011-2013 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
             &nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;
             <a href="http://www.icloud.com" target="_blank">iCloud</a> is a service provided by <a href="http://www.apple.com" target="_blank">Apple Inc.</a></div>
         </div>
 	</body>
 </html>
 
-<!-- Copyright (C) 2011-2012 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
+<!-- Copyright (C) 2011-2013 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
 <!-- You are not allowed to remove the copyright notices anywhere in this document! -->
 <!-- Please read the dedicated README file for further information on the usage and copyright! -->

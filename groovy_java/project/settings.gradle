@@ -1,0 +1,4 @@
+rootProject.name = 'iCloudCalendars'
+include 'api'
+include 'cmdline'
+include 'gui'

@@ -1,0 +1,11 @@
+description = 'iCloud calendar URL fetcher - GUI app'
+
+version = '2.0.0'
+
+apply plugin: 'application'
+
+mainClassName = 'com.niftyside.icloud.calendars.app.gui.Application'
+
+dependencies {
+	compile project(':api')
+}

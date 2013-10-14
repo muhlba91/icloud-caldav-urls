@@ -20,7 +20,10 @@ If this software helps you to achieve your goal please consider at least a small
 ========================
 
 PHP:  1.2
-Java: 1.2.1
+Groovy/Java:
+	* API: 2.0.0
+	* command line: 2.0.0
+	* GUI: 2.0.0
 
 
 ===============

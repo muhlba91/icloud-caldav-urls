@@ -1,0 +1,25 @@
+=============
+==  2.0.0  ==
+=============
+
+ * changed code base to Groovy
+ * bugfixes
+ * included principal and CardDAV URL in table
+ * updated third-party libraries
+
+
+=============
+==  1.2.1  ==
+=============
+
+ * code cleanup
+ * class restructuring
+ * some further enhancements
+ * added Gradle usage
+
+
+===========
+==  1.2  ==
+===========
+
+ * added correct CardDAV URL display for most application
