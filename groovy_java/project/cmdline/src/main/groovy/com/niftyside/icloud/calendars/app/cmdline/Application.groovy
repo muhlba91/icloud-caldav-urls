@@ -25,7 +25,7 @@ class Application {
 	/* * * * * Variables * * * * */
 
 	public static final def VERSION = "2.0.0"
-	private static final def DEFAULT_SERVER = "p01-caldav.icloud.com"
+	private static final def DEFAULT_SERVER = Calendars.SERVERS[0]
 	private def server
 	private def engine
 

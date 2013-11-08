@@ -32,12 +32,12 @@ import java.util.concurrent.Executors
  *
  * @see {@link http://icloud.niftyside.com}
  *
- * @version 2.0.0
+ * @version 2.0.1
  */
 class Application {
 	/* * * * * Variables * * * * */
 
-	public static final def VERSION = "2.0.0"
+	public static final def VERSION = "2.0.1"
 	public static final def APPLICATION_NAME = "iCloud calendar URLs"
 	public static final def COPYRIGHT_LINK = "<a href='http://www.niftyside.com'>" + Calendars.COPYRIGHT_NAME + "</a>"
 	private static final def LOGGER = LogFactory.getLog(Application.class)

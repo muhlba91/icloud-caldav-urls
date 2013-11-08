@@ -22,14 +22,15 @@ import org.apache.http.util.EntityUtils
  *
  * @see {@link http://icloud.niftyside.com}
  *
- * @version 2.0.0
+ * @version 2.0.1
  */
 class Calendars {
 	/* * * * * Variables * * * * */
 
-	public static final def VERSION = "2.0.0"
+	public static final def VERSION = "2.0.1"
 	public static final def COPYRIGHT_YEARS = "2011-2013"
 	public static final def COPYRIGHT_NAME = "NiftySide - Daniel Muehlbachler (http://www.niftyside.com)"
+	public static final def SERVERS = (1..24).collect { "p" + String.format("%02d", it) + "-caldav.icloud.com" } as String[]
 	private final def clientFactory
 	private final def reader
 	private final def requestMaker

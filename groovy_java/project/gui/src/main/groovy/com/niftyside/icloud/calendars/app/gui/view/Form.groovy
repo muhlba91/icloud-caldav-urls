@@ -1,5 +1,6 @@
 package com.niftyside.icloud.calendars.app.gui.view
 
+import com.niftyside.icloud.calendars.api.Calendars
 import com.niftyside.icloud.calendars.app.gui.event.CredentialEvent
 import com.niftyside.icloud.calendars.app.gui.listener.CredentialListener
 
@@ -20,13 +21,12 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @author Daniel Muehlbachler
  * @copyright 2011-2013 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.0.1
  */
 class Form extends JComponent {
 	/* * * * * Variables * * * * */
 
 	private static final def ENTER_KEY = "enter"
-	private static final def SERVERS = ["p01-caldav.icloud.com", "p02-caldav.icloud.com", "p03-caldav.icloud.com", "p04-caldav.icloud.com", "p05-caldav.icloud.com", "p06-caldav.icloud.com", "p07-caldav.icloud.com", "p08-caldav.icloud.com"] as String[]
 	private final def credentialListeners
 	private final def appleIdField
 	private final def passwordField
@@ -48,7 +48,7 @@ class Form extends JComponent {
 		appleIdField.setColumns(50)
 		passwordField = new JPasswordField()
 		passwordField.setColumns(50)
-		serverComboBox = new JComboBox<String>(SERVERS)
+		serverComboBox = new JComboBox<String>(Calendars.SERVERS)
 
 		setPreferredSize(new Dimension(625, 175))
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS))
