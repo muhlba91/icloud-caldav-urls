@@ -57,8 +57,8 @@
 <?php
 	//Define iCloud URLs
 	$icloudUrls = array();
-	for($i = 1; $i < 9; $i++)
-		$icloudUrls[] = "https://p0".$i."-caldav.icloud.com";
+	for($i = 1; $i < 20; $i++)
+		$icloudUrls[] = "https://p".str_pad($i, 2, '0', STR_PAD_LEFT)."-caldav.icloud.com";
 	
 	//Functions
 	function doRequest($user, $pw, $url, $xml)
