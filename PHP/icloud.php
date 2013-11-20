@@ -68,6 +68,7 @@
 		//Set headers
 		curl_setopt($c, CURLOPT_HTTPHEADER, array("Depth: 1", "Content-Type: text/xml; charset='UTF-8'", "User-Agent: DAVKit/4.0.1 (730); CalendarStore/4.0.1 (973); iCal/4.0.1 (1374); Mac OS X/10.6.2 (10C540)"));
 		curl_setopt($c, CURLOPT_HEADER, 0);
+		curl_setopt($c, CURLOPT_USERAGENT, 'iCloud CalDAV urls in PHP');
 		//Set SSL
 		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
