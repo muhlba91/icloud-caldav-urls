@@ -5,6 +5,7 @@ version = '2.0.1'
 apply plugin: 'application'
 
 mainClassName = 'com.niftyside.icloud.calendars.app.gui.Application'
+applicationDefaultJvmArgs = ["-noverify"]
 
 dependencies {
 	compile project(':api')

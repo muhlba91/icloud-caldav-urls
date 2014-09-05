@@ -7,6 +7,11 @@ subprojects {
 	apply plugin: 'idea'
 	apply plugin: 'groovy'
 
+	// handle compilation errors for Java >= 1.7.0.65
+	tasks.withType(GroovyCompile) {
+		groovyOptions.fork = false
+	}
+
 	repositories {
 		mavenCentral()
 	}
