@@ -1,4 +1,12 @@
 ===========
+==  1.4  ==
+===========
+
+ * added CardDAV URL retrieval via CardDAV request
+ * minor clean up
+
+
+===========
 ==  1.3  ==
 ===========
 

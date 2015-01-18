@@ -92,11 +92,23 @@
                 <table border='0'>
                     <tr>
                         <td><b style='color:blue;'>Apple ID: </b></td>
-                        <td><input type='text' name='appleID' id='appleID' size='50' value='<? echo isset($_POST['appleID']) ? $_POST['appleID'] : "";?>'></td>
+                        <?php
+                        	echo "<td><input type='text' name='appleID' id='appleID' size='50' value='";
+                        	if(isset($_POST['appleID']) {
+                        		echo $_POST['appleID'];
+                        	}
+                        	echo "'></td>";
+						?>
                     </tr>
                     <tr>
                         <td><b style='color:blue;'>Password: </b></td>
-                        <td><input type='password' name='pw' id='pw' size='50' value='<? echo isset($_POST['appleID']) ? $_POST['pw'] : "";?>'></td>
+                        <?php
+                        	echo "<td><input type='password' name='pw' id='pw' size='50' value='";
+                        	if(isset($_POST['pw']) {
+                        		echo $_POST['pw'];
+                        	}
+                        	echo "'></td>";
+						?>
                     </tr>
                     <tr>
                     	<td><b style='color:blue;'>iCloud server: </b></td>
@@ -155,13 +167,23 @@
 		foreach($response->response as $cal)
 		{
 			$entry["href"]=$cal->href;
-			$entry["name"]=$cal->propstat[0]->prop[0]->displayname;
+			if(isset($cal->propstat[0]->prop[0]->displayname)) {
+				$entry["name"]=$cal->propstat[0]->prop[0]->displayname;
+			} else {
+				$entry["name"]="";
+			}
 			$calendars[]=$entry;
 		}
 
 		//CardDAV URL
 		$cardserver = str_replace('caldav', 'contacts', $_POST['server']);
-		$cardurl = "/".$userID."/carddavhome/card/";
+		$card_request="<A:propfind xmlns:A='DAV:'>
+							<A:prop>
+								<A:addressbook-home-set xmlns:A='urn:ietf:params:xml:ns:carddav'/>
+							</A:prop>
+						</A:propfind>";
+		$response=simplexml_load_string(doRequest($user, $pw, $cardserver . $principal_url, $card_request));
+		$cardurl=$response->response[0]->propstat[0]->prop[0]->{'addressbook-home-set'}->href;
 		
 		//Output
 		echo "<h1 style='color:darkred;'>Your principal settings</h1>";
@@ -187,7 +209,7 @@
 		echo "<table border='1' style='border-collapse:collapse;'>
 				<tr>
 					<td align='center'><b style='color:blue;'>Calendar</td>
-					<td align='center'><b style='color:blue;'>Calendar href/td>
+					<td align='center'><b style='color:blue;'>Calendar href</td>
 					<td align='center'><b style='color:blue;'>URL</td>
 				</tr>";
 		foreach($calendars as $calendar)
@@ -209,13 +231,13 @@
 ?>
 		</div>
 		<div id="copy">
-        	<div>Version v1.3 ; Script copyright &copy; 2011-2013 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
+        	<div>Version v1.4 ; Script copyright &copy; 2011-2015 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
             &nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;
             <a href="http://www.icloud.com" target="_blank">iCloud</a> is a service provided by <a href="http://www.apple.com" target="_blank">Apple Inc.</a></div>
         </div>
 	</body>
 </html>
 
-<!-- Copyright (C) 2011-2013 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
+<!-- Copyright (C) 2011-2015 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
 <!-- You are not allowed to remove the copyright notices anywhere in this document! -->
 <!-- Please read the dedicated README file for further information on the usage and copyright! -->
