@@ -94,7 +94,7 @@
                         <td><b style='color:blue;'>Apple ID: </b></td>
                         <?php
                         	echo "<td><input type='text' name='appleID' id='appleID' size='50' value='";
-                        	if(isset($_POST['appleID']) {
+                        	if(isset($_POST['appleID'])) {
                         		echo $_POST['appleID'];
                         	}
                         	echo "'></td>";
@@ -104,7 +104,7 @@
                         <td><b style='color:blue;'>Password: </b></td>
                         <?php
                         	echo "<td><input type='password' name='pw' id='pw' size='50' value='";
-                        	if(isset($_POST['pw']) {
+                        	if(isset($_POST['pw'])) {
                         		echo $_POST['pw'];
                         	}
                         	echo "'></td>";
