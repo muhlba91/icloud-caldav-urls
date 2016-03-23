@@ -13,15 +13,15 @@ import javax.swing.table.AbstractTableModel
  * Time: 17:51
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2015 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.0.2
  */
 class ResultTableModel extends AbstractTableModel {
 	/* * * * * Variables * * * * */
 
-	private def userData
-	private def message
+	private userData
+	private message
 
 	/* * * * * Constructor * * * * */
 
@@ -67,12 +67,12 @@ class ResultTableModel extends AbstractTableModel {
 
 	@Override
 	int getRowCount() {
-		message == null ? userData.getCalendars().size() + 2 : 1
+		dataAvailable ? userData.calendars.size() + 2 : 1
 	}
 
 	@Override
 	int getColumnCount() {
-		message == null ? 3 : 1
+		dataAvailable ? 3 : 1
 	}
 
 	@Override
@@ -80,16 +80,16 @@ class ResultTableModel extends AbstractTableModel {
 		def value = message
 
 		if(value == null) {
-			def calendar = (rowIndex >= 2) ? userData.getCalendars().get(rowIndex - 2) : null
+			def calendar = (rowIndex >= 2) ? userData.calendars.get(rowIndex - 2) : null
 			switch(columnIndex) {
 				case 0:
-					value = calendar != null ? calendar.getName() : (rowIndex == 0 ? "Principal" : "CardDAV")
+					value = calendar != null ? calendar.name : (rowIndex == 0 ? "Principal" : "CardDAV")
 					break
 				case 1:
-					value = calendar != null ? calendar.getHref() : "N/A"
+					value = calendar != null ? calendar.href : "N/A"
 					break
 				case 2:
-					value = calendar != null ? calendar.getURL() : (rowIndex == 0 ? userData.getPrincipalUrl() : userData.getCardDavUrl())
+					value = calendar != null ? calendar.getURL() : (rowIndex == 0 ? userData.principalUrl : userData.cardDavUrl)
 					break
 				default:
 					value = ""
@@ -97,5 +97,17 @@ class ResultTableModel extends AbstractTableModel {
 		}
 
 		value
+	}
+
+	/**
+	 * Checks whether data is available or not.
+	 *
+	 * @return
+	 * true - if data is available; false - otherwise
+	 *
+	 * @since 2.0.2
+	 */
+	private boolean isDataAvailable() {
+		message == null && userData && userData.calendars
 	}
 }

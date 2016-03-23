@@ -13,17 +13,18 @@ import java.util.concurrent.ConcurrentHashMap
  * Time: 17:17
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class DefaultUserData implements UserData {
 	/* * * * * Variables * * * * */
 
-	private final def server
-	private final def principal
-	private final def calendars
-	private final def maxLengths
+	private final server
+	private final principal
+	private final calendars
+	private final cardDavUrl
+	private final maxLengths
 
 	/* * * * * Constructor * * * * */
 
@@ -38,9 +39,26 @@ class DefaultUserData implements UserData {
 	 * @since 2.0.0
 	 */
 	DefaultUserData(String server, String principal, List<com.niftyside.icloud.calendars.api.model.Calendar> calendars) {
+		this(server, principal, calendars, null)
+	}
+
+	/**
+	 * Initializes a new user data object.
+	 *
+	 * @param principal
+	 *            the principal ID
+	 * @param calendars
+	 *            the calendars
+	 * @param cardDavUrl
+	 *           the CardDAV URL
+	 *
+	 * @since 2.1.0
+	 */
+	DefaultUserData(String server, String principal, List<com.niftyside.icloud.calendars.api.model.Calendar> calendars, String cardDavUrl) {
 		this.server = server
 		this.principal = principal
 		this.calendars = Collections.unmodifiableList(calendars)
+		this.cardDavUrl = cardDavUrl
 
 		maxLengths = calculateMaximumLengths()
 	}
@@ -64,7 +82,7 @@ class DefaultUserData implements UserData {
 
 	@Override
 	def getCardDavUrl() {
-		"hhtps://" + server.replace("caldav", "contacts") + "/" + principal + "/carddavhome/card/"
+		this.cardDavUrl ?: "https://" + server.replace("caldav", "contacts") + "/" + principal + "/carddavhome/"
 	}
 
 	@Override
@@ -81,12 +99,12 @@ class DefaultUserData implements UserData {
 	 *
 	 * @since 2.0.0
 	 */
-	private def calculateMaximumLengths() {
+	private calculateMaximumLengths() {
 		def map = new ConcurrentHashMap<String, Integer>()
 
-		map.put("name", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.getName().length() }.getName().length())
-		map.put("href", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.getHref().length() }.getHref().length())
-		map.put("url", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.getURL().length() }.getURL().length())
+		map.put("name", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.name.length() }.name.length())
+		map.put("href", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.href.length() }.href.length())
+		map.put("url", calendars.max { com.niftyside.icloud.calendars.api.model.Calendar calendar -> calendar.getURL().length() }.URL.length())
 
 		Collections.unmodifiableMap(map)
 	}

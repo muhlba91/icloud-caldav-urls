@@ -33,7 +33,7 @@ class ServerException extends DefaultException {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"Server: " + super.getMessage()
+	String getMessage() {
+		"Server: " + super.message
 	}
 }

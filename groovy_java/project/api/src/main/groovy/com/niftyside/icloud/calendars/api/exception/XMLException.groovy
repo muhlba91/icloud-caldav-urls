@@ -33,7 +33,7 @@ class XMLException extends DefaultException {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"XML: " + super.getMessage()
+	String getMessage() {
+		"XML: " + super.message
 	}
 }

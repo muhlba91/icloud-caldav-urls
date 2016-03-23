@@ -15,19 +15,19 @@ import java.util.concurrent.ConcurrentHashMap
  * Time: 13:45
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
  * @see {@link http://icloud.niftyside.com}
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class Application {
 	/* * * * * Variables * * * * */
 
-	public static final def VERSION = "2.0.0"
-	private static final def DEFAULT_SERVER = Calendars.SERVERS[0]
-	private def server
-	private def engine
+	public static final VERSION = "2.1.0"
+	private static final DEFAULT_SERVER = Calendars.SERVERS[0]
+	private server
+	private engine
 
 	/* * * * * Methods * * * * */
 
@@ -39,7 +39,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		if(args.length == 2) {
 			def arguments = parseArguments(args)
 
@@ -47,7 +47,7 @@ class Application {
 				def application = new Application(DEFAULT_SERVER, arguments.get("username"), arguments.get("password"))
 				application.print()
 			} catch(CalendarsException e) {
-				printError(e.getMessage())
+				printError(e.message)
 			}
 		} else {
 			printError("Error: invalid argument count!")
@@ -83,22 +83,22 @@ class Application {
 	def print() {
 		printHead()
 
-		def queryData = engine.getUserData()
+		def queryData = engine.userData
 		if(queryData == null) {
 			printError("Error: unknown.")
 			return
 		}
 
-		println "Principal ID: " + queryData.getPrincipal()
-		println "Principal-URL: " + queryData.getPrincipalUrl()
-		println "Contacts-URL: " + queryData.getCardDavUrl() + "\n" + "Your calendars:"
+		println "Principal ID: " + queryData.principal
+		println "Principal-URL: " + queryData.principalUrl
+		println "Contacts-URL: " + queryData.cardDavUrl + "\n" + "Your calendars:"
 
-		def lengths = queryData.getMaxLengths();
+		def lengths = queryData.maxLengths
 		def format = "%-" + (lengths.get("name") + 3) + "s %-" + (lengths.get("href") + 3) + "s %-" + (lengths.get("url") + 3) + "s\n"
 
 		printf format, "NAME", "HREF", "URL"
-		queryData.getCalendars().each { calendar ->
-			printf format, calendar.getName(), calendar.getHref(), calendar.getURL()
+		queryData.calendars.each { calendar ->
+			printf format, calendar.name, calendar.href, calendar.getURL()
 		}
 
 		println()
@@ -109,7 +109,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private static def printHead() {
+	private static printHead() {
 		println "iCloud command line calendar URL fetcher\n" +
 				"Version: " + VERSION + "\n" +
 				"API version: " + Calendars.VERSION + "\n\n" +
@@ -133,7 +133,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private static def printError(String msg) {
+	private static printError(String msg) {
 		println msg + "\n"
 		printHelp()
 	}
@@ -143,7 +143,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private static def printHelp() {
+	private static printHelp() {
 		println "HELP:\n" + "Paramters: <username> <password>\n" + "\t<username>: your Apple ID\n" + "\t<password>: your password\n"
 	}
 
@@ -156,7 +156,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private static def parseArguments(String[] args) {
+	private static parseArguments(String[] args) {
 		def map = new ConcurrentHashMap<String, String>()
 
 		map.put("username", args[0])

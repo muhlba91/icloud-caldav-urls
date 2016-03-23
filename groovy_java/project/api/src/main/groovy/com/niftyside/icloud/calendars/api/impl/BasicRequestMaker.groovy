@@ -20,14 +20,14 @@ import javax.xml.transform.stream.StreamResult
  * Time: 17:12
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class BasicRequestMaker implements RequestMaker {
 	/* * * * * Variables * * * * */
 
-	private final def builder
+	private final builder
 
 	/* * * * * Constructor * * * * */
 
@@ -52,11 +52,16 @@ class BasicRequestMaker implements RequestMaker {
 
 	@Override
 	def makePropfindRequest(String requestType) throws RequestException {
+		makePropfindRequest(requestType, null)
+	}
+
+	@Override
+	def makePropfindRequest(String requestType, Map<String, String> properties) throws RequestException {
 		def doc = builder.newDocument()
 
-		createRequest(doc, requestType)
+		createRequest(doc, requestType, properties)
 
-		return writeToString(doc)
+		writeToString(doc)
 	}
 
 	/* * * * * Private methods * * * * */
@@ -68,15 +73,20 @@ class BasicRequestMaker implements RequestMaker {
 	 *            the document
 	 * @param requestType
 	 *            the request type
+	 * @param properties
+	 *            the properties for the request type
 	 *
-	 * @since 2.0.0
+	 * @since 2.1.0
 	 */
-	private def createRequest(Document doc, String requestType) {
+	private createRequest(Document doc, String requestType, Map<String, String> properties) {
 		def root = doc.createElement("A:propfind")
 		root.setAttribute("xmlns:A", "DAV:")
 
 		def child = doc.createElement("A:prop")
 		def request = doc.createElement("A:" + requestType)
+		properties?.each {
+			request.setAttribute(it.key, it.value)
+		}
 
 		child.appendChild(request)
 		root.appendChild(child)
@@ -95,7 +105,7 @@ class BasicRequestMaker implements RequestMaker {
 	 *
 	 * @since 2.0.0
 	 */
-	private def writeToString(Document doc) throws RequestException {
+	private writeToString(Document doc) throws RequestException {
 		def source = new DOMSource(doc)
 
 		def writer = new StringWriter()

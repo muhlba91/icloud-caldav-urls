@@ -33,7 +33,7 @@ class FactoryException extends DefaultException {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"Factory: " + super.getMessage()
+	String getMessage() {
+		"Factory: " + super.message
 	}
 }

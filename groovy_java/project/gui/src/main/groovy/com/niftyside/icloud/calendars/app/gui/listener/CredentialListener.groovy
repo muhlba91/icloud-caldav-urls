@@ -15,7 +15,7 @@ import com.niftyside.icloud.calendars.app.gui.event.CredentialEvent
  *
  * @version 2.0.0
  */
-public interface CredentialListener extends EventListener {
+interface CredentialListener extends EventListener {
 	/**
 	 * Called if a {@link CredentialEvent} occurs.
 	 *

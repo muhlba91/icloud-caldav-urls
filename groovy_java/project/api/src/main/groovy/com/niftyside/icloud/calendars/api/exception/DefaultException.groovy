@@ -30,7 +30,7 @@ abstract class DefaultException extends Exception {
 	 *
 	 * @since 2.0.0
 	 */
-	DefaultException(String message, Exception originalException) {
+	protected DefaultException(String message, Exception originalException) {
 		super(message)
 
 		this.originalException = originalException
@@ -39,7 +39,7 @@ abstract class DefaultException extends Exception {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"Default: " + super.getMessage()
+	String getMessage() {
+		"Default: " + super.message
 	}
 }

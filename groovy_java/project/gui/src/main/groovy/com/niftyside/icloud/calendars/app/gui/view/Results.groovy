@@ -27,8 +27,8 @@ import java.awt.event.KeyEvent
 class Results extends JComponent {
 	/* * * * * Variables * * * * */
 
-	private final def table
-	private final def tableModel
+	private final table
+	private final tableModel
 
 	/* * * * * Constructor * * * * */
 
@@ -50,8 +50,8 @@ class Results extends JComponent {
 
 		setCopy()
 
-		setSize(table.getPreferredSize())
-		setPreferredSize(table.getPreferredSize())
+		setSize(table.preferredSize)
+		setPreferredSize(table.preferredSize)
 	}
 
 	/* * * * * Methods * * * * */
@@ -63,7 +63,7 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	public def getUserDataListener() {
+	def getUserDataListener() {
 		{ UserDataEvent event ->
 			setData(event)
 		} as UserDataListener
@@ -76,11 +76,11 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def layoutTable() {
+	private layoutTable() {
 		table.setPreferredSize(new Dimension(975, 225))
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS)
 
-		table.getTableHeader().setBackground(Color.LIGHT_GRAY)
+		table.tableHeader.setBackground(Color.LIGHT_GRAY)
 
 		add(new JScrollPane(table), BorderLayout.CENTER)
 	}
@@ -93,7 +93,7 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def setData(UserDataEvent event) {
+	private setData(UserDataEvent event) {
 		makeSingleColumn()
 
 		if(event == null) {
@@ -102,7 +102,7 @@ class Results extends JComponent {
 			makeColumns()
 			tableModel.setUserData(event.userData)
 		} else {
-			tableModel.setMessage(event.exception.getMessage())
+			tableModel.setMessage(event.exception.message)
 		}
 
 		table.revalidate()
@@ -113,9 +113,9 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def deleteColumns() {
-		def columnModel = table.getTableHeader().getColumnModel()
-		for(int i = columnModel.getColumnCount() - 1; i >= 0; i --) {
+	private deleteColumns() {
+		def columnModel = table.tableHeader.columnModel
+		for(int i = columnModel.columnCount - 1; i >= 0; i--) {
 			columnModel.removeColumn(columnModel.getColumn(i))
 		}
 	}
@@ -125,12 +125,12 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def makeSingleColumn() {
+	private makeSingleColumn() {
 		deleteColumns()
 
 		def col0 = new TableColumn(0)
 		col0.setHeaderValue("Information - Error")
-		table.getTableHeader().getColumnModel().addColumn(col0)
+		table.tableHeader.columnModel.addColumn(col0)
 	}
 
 	/**
@@ -138,9 +138,9 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def makeColumns() {
+	private makeColumns() {
 		deleteColumns()
-		def columnModel = table.getTableHeader().getColumnModel()
+		def columnModel = table.tableHeader.columnModel
 
 		def col0 = new TableColumn(0)
 		col0.setHeaderValue("Name")
@@ -162,17 +162,17 @@ class Results extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def setCopy() {
-		def key = KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK, false);
+	private setCopy() {
+		def key = KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK, false)
 		table.registerKeyboardAction({ ActionEvent event ->
-			def col = table.getSelectedColumn()
-			def row = table.getSelectedRow()
+			def col = table.selectedColumn
+			def row = table.selectedRow
 
-			if(col != - 1 && row != - 1) {
+			if(col != -1 && row != -1) {
 				def val = table.getValueAt(row, col)
 				def data = (val == null) ? "" : val.toString()
 				def selection = new StringSelection(data)
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection)
+				Toolkit.defaultToolkit.systemClipboard.setContents(selection, selection)
 			}
 		} as AbstractAction, "copy", key, WHEN_FOCUSED)
 	}

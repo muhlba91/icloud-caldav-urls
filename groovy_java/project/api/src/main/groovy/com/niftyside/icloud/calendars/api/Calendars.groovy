@@ -5,9 +5,9 @@ import com.niftyside.icloud.calendars.api.exception.*
 import com.niftyside.icloud.calendars.api.impl.BasicRequestMaker
 import com.niftyside.icloud.calendars.api.impl.BasicXMLReader
 import com.niftyside.icloud.calendars.api.impl.DefaultUserData
-import org.apache.http.client.HttpClient
-import org.apache.http.impl.client.BasicResponseHandler
-import org.apache.http.util.EntityUtils
+import org.apache.hc.client5.http.impl.BasicResponseHandler
+import org.apache.hc.client5.http.sync.HttpClient
+import org.apache.hc.core5.http.entity.EntityUtils
 
 /**
  * The iCloud calendars API for querying calendar information.
@@ -18,25 +18,29 @@ import org.apache.http.util.EntityUtils
  * Time: 21:35
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
  * @see {@link http://icloud.niftyside.com}
  *
- * @version 2.0.1
+ * @version 2.1.0
  */
 class Calendars {
 	/* * * * * Variables * * * * */
 
-	public static final def VERSION = "2.0.1"
-	public static final def COPYRIGHT_YEARS = "2011-2013"
-	public static final def COPYRIGHT_NAME = "NiftySide - Daniel Muehlbachler (http://www.niftyside.com)"
-	public static final def SERVERS = (1..24).collect { "p" + String.format("%02d", it) + "-caldav.icloud.com" } as String[]
-	private final def clientFactory
-	private final def reader
-	private final def requestMaker
-	private def server
-	private def username
-	private def password
+	public static final VERSION = "2.1.0"
+	public static final COPYRIGHT_YEARS = "2011-2016"
+	public static final COPYRIGHT_NAME = "NiftySide - Daniel Muehlbachler (http://www.niftyside.com)"
+	public static final SERVERS = (1..24).collect {
+		"p" + String.format("%02d", it) + "-caldav.icloud.com"
+	} as String[]
+	private static final CAL_DAV_REALM = "MMCalDav"
+	private static final CARD_DAV_REALM = "Newcastle"
+	private final clientFactory
+	private final reader
+	private final requestMaker
+	private server
+	private username
+	private password
 
 	/* * * * * Constructor * * * * */
 
@@ -148,7 +152,7 @@ class Calendars {
 		try {
 			createUserData()
 		} catch(XMLException | RequestException | FactoryException | ServerException e) {
-			throw new CalendarsException("Couldn't fetch requested data!", e);
+			throw new CalendarsException("Couldn't fetch requested data!", e)
 		}
 	}
 
@@ -182,13 +186,15 @@ class Calendars {
 	 *
 	 * @since 2.0.0
 	 */
-	private def createUserData() throws RequestException, FactoryException, ServerException, XMLException {
-		def client = clientFactory.getHttpClient(server, username, password)
+	private createUserData() throws RequestException, FactoryException, ServerException, XMLException {
+		def caldavClient = clientFactory.getHttpClient(server, username, password, CAL_DAV_REALM)
+		def carddavClient = clientFactory.getHttpClient(cardDavServer, username, password, CARD_DAV_REALM)
 
-		def principal = getPrincipal(client)
-		def calendars = getCalendars(client, principal)
+		def principal = getPrincipal(caldavClient)
+		def calendars = getCalendars(caldavClient, principal)
+		def cardDavUrl = getCardDavUrl(carddavClient, principal)
 
-		new DefaultUserData(server, principal, calendars)
+		new DefaultUserData(server, principal, calendars, cardDavUrl == "N/A" ? null : cardDavUrl)
 	}
 
 	/**
@@ -209,34 +215,44 @@ class Calendars {
 	 *
 	 * @since 2.0.0
 	 */
-	private def getPrincipal(HttpClient client) throws RequestException, FactoryException, ServerException, XMLException {
+	private getPrincipal(HttpClient client) throws RequestException, FactoryException, ServerException, XMLException {
 		def request = requestMaker.makePropfindRequest("current-user-principal")
 		def propfind = clientFactory.getPropfindMethod("https://" + server + ":443/", request)
 
-		def responseBody = null
-		def response = null
-		try {
-			response = client.execute(propfind)
-
-			if(response.getStatusLine().statusCode != 207) {
-				throw new ServerException("Unable to authenticate.", null)
-			}
-
-			responseBody = new BasicResponseHandler().handleResponse(response)
-		} catch(final IOException e) {
-			throw new ServerException("Can't make request.", e)
-		} finally {
-			if(response != null) {
-				EntityUtils.consume(response.getEntity())
-			}
-		}
-
-		reader.setXML(responseBody)
-		reader.getPrincipal()
+		performPropfindRequest(client, propfind)
+		reader.principal
 	}
 
 	/**
-	 * Gets the principal.
+	 * Gets the CardDAV URLs.
+	 *
+	 * @param client
+	 *            the http client
+	 * @param principal
+	 *            the principal
+	 * @return the CardDAV URL
+	 * @throws RequestException
+	 *             if the request couldn't get created
+	 * @throws FactoryException
+	 *             if the {@link PropfindMethod} couldn't get initialized
+	 * @throws ServerException
+	 *             if an error communicating with or authenticating on the
+	 *             server occurs
+	 * @throws XMLException
+	 *             if the response couldn't get parsed
+	 *
+	 * @since 2.1.0
+	 */
+	private getCardDavUrl(HttpClient client, String principal) throws RequestException, FactoryException, ServerException, XMLException {
+		def request = requestMaker.makePropfindRequest("addressbook-home-set", ['xmlns:A': 'urn:ietf:params:xml:ns:carddav'])
+		def propfind = clientFactory.getPropfindMethod("https://" + cardDavServer + ":443/" + principal + "/principal/", request)
+
+		performPropfindRequest(client, propfind)
+		reader.cardDavUrl
+	}
+
+	/**
+	 * Gets the calendars.
 	 *
 	 * @param client
 	 *            the http client
@@ -255,16 +271,31 @@ class Calendars {
 	 *
 	 * @since 2.0.0
 	 */
-	private def getCalendars(HttpClient client, String principal) throws RequestException, FactoryException, ServerException, XMLException {
+	private getCalendars(HttpClient client, String principal) throws RequestException, FactoryException, ServerException, XMLException {
 		def request = requestMaker.makePropfindRequest("displayname")
 		def propfind = clientFactory.getPropfindMethod("https://" + server + ":443/" + principal + "/calendars/", request)
 
+		performPropfindRequest(client, propfind)
+		reader.getCalendars(server)
+	}
+
+	/**
+	 * Performs a propfind request and sets the result in the reader.
+	 *
+	 * @param client
+	 * 		the http client
+	 * @param propfind
+	 * 		the request to execute
+	 *
+	 * @since 2.0.2
+	 */
+	private void performPropfindRequest(HttpClient client, def propfind) {
 		def responseBody = null
 		def response = null
 		try {
 			response = client.execute(propfind)
 
-			if(response.getStatusLine().statusCode != 207) {
+			if(response.statusLine.statusCode != 207) {
 				throw new ServerException("Unable to authenticate.", null)
 			}
 
@@ -273,11 +304,21 @@ class Calendars {
 			throw new ServerException("Can't make request.", e)
 		} finally {
 			if(response != null) {
-				EntityUtils.consume(response.getEntity())
+				EntityUtils.consume(response.entity)
 			}
 		}
 
 		reader.setXML(responseBody)
-		reader.getCalendars(server)
+	}
+
+	/**
+	 * Gets the CardDAV server URL.
+	 *
+	 * @return the CardDAV server URL
+	 *
+	 * @since 2.1.0
+	 */
+	private String getCardDavServer() {
+		server.replace("caldav", "contacts")
 	}
 }

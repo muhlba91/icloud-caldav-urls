@@ -28,24 +28,24 @@ import java.util.concurrent.Executors
  * Time: 19:22
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
  * @see {@link http://icloud.niftyside.com}
  *
- * @version 2.0.1
+ * @version 2.1.0
  */
 class Application {
 	/* * * * * Variables * * * * */
 
-	public static final def VERSION = "2.0.1"
-	public static final def APPLICATION_NAME = "iCloud calendar URLs"
-	public static final def COPYRIGHT_LINK = "<a href='http://www.niftyside.com'>" + Calendars.COPYRIGHT_NAME + "</a>"
-	private static final def LOGGER = LogFactory.getLog(Application.class)
-	private final def window
-	private final def progressBar
-	private final def userDataListeners
-	private final def executorService
-	private final def engine
+	public static final VERSION = "2.1.0"
+	public static final APPLICATION_NAME = "iCloud calendar URLs"
+	public static final COPYRIGHT_LINK = "<a href='http://www.niftyside.com'>" + Calendars.COPYRIGHT_NAME + "</a>"
+	private static final LOGGER = LogFactory.getLog(Application.class)
+	private final window
+	private final progressBar
+	private final userDataListeners
+	private final executorService
+	private final engine
 
 
 	/* * * * * Static methods * * * * */
@@ -58,9 +58,9 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+			UIManager.setLookAndFeel(UIManager.systemLookAndFeelClassName)
 		} catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			LOGGER.info("Look and feel not set.", e)
 		}
@@ -110,7 +110,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private def createMenu() {
+	private createMenu() {
 		def menuBar = new JMenuBar()
 		window.setJMenuBar(menuBar)
 
@@ -147,7 +147,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private def initializeDefaultView() {
+	private initializeDefaultView() {
 		window.setLayout(new BorderLayout())
 
 		def form = new Form()
@@ -157,7 +157,7 @@ class Application {
 		window.add(form, BorderLayout.NORTH)
 
 		def result = new Results()
-		addUserDataListener(result.getUserDataListener())
+		addUserDataListener(result.userDataListener)
 		window.add(result, BorderLayout.CENTER)
 	}
 
@@ -169,7 +169,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addUserDataListener(UserDataListener listener) {
+	private addUserDataListener(UserDataListener listener) {
 		userDataListeners.add(listener)
 	}
 
@@ -182,7 +182,7 @@ class Application {
 	 * @since 2.0.0
 	 */
 	@SuppressWarnings("unused")
-	private def removeUserDataListener(UserDataListener listener) {
+	private removeUserDataListener(UserDataListener listener) {
 		userDataListeners.remove(listener)
 	}
 
@@ -198,7 +198,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private def fetchUserData(String appleId, String password, String server) {
+	private fetchUserData(String appleId, String password, String server) {
 		executorService.execute({
 			progressBar.setVisible(true)
 
@@ -208,7 +208,7 @@ class Application {
 			def exception = null
 
 			try {
-				userData = engine.getUserData()
+				userData = engine.userData
 			} catch(CalendarsException e) {
 				exception = e
 			}
@@ -228,7 +228,7 @@ class Application {
 	 *
 	 * @since 2.0.0
 	 */
-	private def fireUserDataEvent(UserData userData, CalendarsException exception) {
+	private fireUserDataEvent(UserData userData, CalendarsException exception) {
 		def event = new UserDataEvent(userData, exception)
 		userDataListeners.each {
 			it.newUserData(event)

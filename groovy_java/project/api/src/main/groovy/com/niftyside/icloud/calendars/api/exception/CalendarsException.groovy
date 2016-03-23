@@ -33,7 +33,7 @@ class CalendarsException extends DefaultException {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"Calendars: " + super.getMessage()
+	String getMessage() {
+		"Calendars: " + super.message
 	}
 }

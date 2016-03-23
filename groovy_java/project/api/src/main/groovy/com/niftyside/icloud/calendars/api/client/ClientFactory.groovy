@@ -1,11 +1,12 @@
 package com.niftyside.icloud.calendars.api.client
 
 import com.niftyside.icloud.calendars.api.exception.FactoryException
-import org.apache.http.auth.AuthScope
-import org.apache.http.auth.UsernamePasswordCredentials
-import org.apache.http.entity.StringEntity
-import org.apache.http.impl.client.BasicCredentialsProvider
-import org.apache.http.impl.client.HttpClients
+import org.apache.hc.client5.http.auth.AuthScope
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials
+import org.apache.hc.client5.http.impl.sync.BasicCredentialsProvider
+import org.apache.hc.client5.http.impl.sync.HttpClients
+import org.apache.hc.core5.http.entity.ContentType
+import org.apache.hc.core5.http.entity.StringEntity
 
 /**
  * Factory for {@link HttpClient} and {@link PropfindMethod}.
@@ -16,9 +17,9 @@ import org.apache.http.impl.client.HttpClients
  * Time: 21:52
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class ClientFactory {
 	/* * * * * Methods * * * * */
@@ -32,15 +33,17 @@ class ClientFactory {
 	 * 		the username
 	 * @param password
 	 * 		the password
+	 * @param realm
+	 * 		the AuthScope realm
 	 * @return
 	 * the configured HttpClient
 	 *
-	 * @since 2.0.0
+	 * @since 2.1.0
 	 */
-	def getHttpClient(String server, String username, String password) {
+	def getHttpClient(String server, String username, String password, String realm) {
 		// setup authentication
 		def credentialsProvider = new BasicCredentialsProvider()
-		credentialsProvider.setCredentials(new AuthScope(server, 443, "MMCalDav"), getCredentials(username, password))
+		credentialsProvider.setCredentials(new AuthScope(server, 443, realm), getCredentials(username, password))
 
 		HttpClients.custom().setDefaultCredentialsProvider(credentialsProvider).build()
 	}
@@ -62,9 +65,9 @@ class ClientFactory {
 
 		// set needed data including request
 		try {
-			propfind.setEntity(new StringEntity(request, "text/xml", "UTF-8"))
+			propfind.setEntity(new StringEntity(request, ContentType.create("text/xml", "UTF-8")))
 		} catch(final UnsupportedEncodingException e) {
-			throw new FactoryException("Error: couldn't initialize encoding.", e);
+			throw new FactoryException("Error: couldn't initialize encoding.", e)
 		}
 		propfind.setHeader("Content-type", "text/xml; charset=UTF-8")
 		propfind.setHeader("Depth", "1")
@@ -88,7 +91,7 @@ class ClientFactory {
 	 *
 	 * @since 2.0.0
 	 */
-	private def getCredentials(String username, String password) {
-		new UsernamePasswordCredentials(username, password)
+	private getCredentials(String username, String password) {
+		new UsernamePasswordCredentials(username, password.chars)
 	}
 }

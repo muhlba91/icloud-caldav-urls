@@ -15,7 +15,7 @@ import com.niftyside.icloud.calendars.app.gui.event.UserDataEvent
  *
  * @version 2.0.0
  */
-public interface UserDataListener extends EventListener {
+interface UserDataListener extends EventListener {
 	/**
 	 * Called if a {@link UserDataEvent} occurs.
 	 *

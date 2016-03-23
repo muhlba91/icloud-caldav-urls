@@ -26,11 +26,11 @@ import java.util.concurrent.CopyOnWriteArrayList
 class Form extends JComponent {
 	/* * * * * Variables * * * * */
 
-	private static final def ENTER_KEY = "enter"
-	private final def credentialListeners
-	private final def appleIdField
-	private final def passwordField
-	private final def serverComboBox
+	private static final ENTER_KEY = "enter"
+	private final credentialListeners
+	private final appleIdField
+	private final passwordField
+	private final serverComboBox
 
 	/* * * * * Constructor * * * * */
 
@@ -71,7 +71,7 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	public def addCredentialListener(CredentialListener listener) {
+	def addCredentialListener(CredentialListener listener) {
 		credentialListeners.add(listener)
 	}
 
@@ -83,7 +83,7 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	public def removeCredentialListener(CredentialListener listener) {
+	def removeCredentialListener(CredentialListener listener) {
 		credentialListeners.remove(listener)
 	}
 
@@ -94,7 +94,7 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addFormPanel() {
+	private addFormPanel() {
 		def formPanel = new JPanel(new GridBagLayout())
 		formPanel.setBorder(BorderFactory.createEmptyBorder(5, 25, 5, 25))
 
@@ -119,7 +119,7 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addRowToPanel(JPanel panel, String title, JComponent component, int row) {
+	private addRowToPanel(JPanel panel, String title, JComponent component, int row) {
 		panel.add(new JLabel(title), createGridBagConstraints(row, 0, false))
 		panel.add(component, createGridBagConstraints(row, 1, true))
 	}
@@ -139,17 +139,19 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def createGridBagConstraints(int row, int col, boolean isLast) {
+	private createGridBagConstraints(int row, int col, boolean isLast) {
 		def constraints = new GridBagConstraints()
 
-		constraints.gridx = col
-		constraints.gridy = row
-		constraints.anchor = GridBagConstraints.NORTHWEST
-		constraints.fill = isLast ? GridBagConstraints.HORIZONTAL : GridBagConstraints.NONE
-		constraints.gridwidth = isLast ? GridBagConstraints.REMAINDER : 1
-		constraints.weightx = isLast ? 10.0 : 1.0
-		constraints.weighty = 1.0
-		constraints.insets = new Insets(5, 5, 5, 5)
+		constraints.with {
+			gridx = col
+			gridy = row
+			anchor = NORTHWEST
+			fill = isLast ? HORIZONTAL : NONE
+			gridwidth = isLast ? REMAINDER : 1
+			weightx = isLast ? 10.0 : 1.0
+			weighty = 1.0
+			insets = new Insets(5, 5, 5, 5)
+		}
 
 		constraints
 	}
@@ -159,11 +161,11 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addBottomPanel() {
+	private addBottomPanel() {
 		def bottom = new JPanel(new FlowLayout(FlowLayout.CENTER))
 		def fetch = new JButton(new AbstractAction("Get calendar URLs") {
 			@Override
-			public void actionPerformed(ActionEvent event) {
+			void actionPerformed(ActionEvent event) {
 				fireCredentialEvent()
 			}
 		})
@@ -177,8 +179,8 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def fireCredentialEvent() {
-		def event = new CredentialEvent(appleIdField.getText(), new String(passwordField.getPassword()), (String) serverComboBox.getSelectedItem())
+	private fireCredentialEvent() {
+		def event = new CredentialEvent(appleIdField.text, new String(passwordField.password), (String) serverComboBox.selectedItem)
 		credentialListeners.each {
 			it.credentialsSent(event)
 		}
@@ -189,16 +191,16 @@ class Form extends JComponent {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addKeyEvents() {
+	private addKeyEvents() {
 		def fetch = { ActionEvent event ->
 			fireCredentialEvent()
 		} as AbstractAction
 
-		def inputMapID = appleIdField.getInputMap()
-		def inputMapPW = passwordField.getInputMap()
+		def inputMapID = appleIdField.inputMap
+		def inputMapPW = passwordField.inputMap
 
-		def actionMapID = appleIdField.getActionMap()
-		def actionMapPW = passwordField.getActionMap()
+		def actionMapID = appleIdField.actionMap
+		def actionMapPW = passwordField.actionMap
 
 		def enter = KeyStroke.getKeyStroke((char) KeyEvent.VK_ENTER)
 		actionMapID.put(ENTER_KEY, fetch)

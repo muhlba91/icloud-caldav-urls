@@ -18,10 +18,10 @@ import com.niftyside.icloud.calendars.api.exception.CalendarException
 class DefaultCalendar implements com.niftyside.icloud.calendars.api.model.Calendar {
 	/* * * * * Variables * * * * */
 
-	private static final def UTF8 = "UTF-8"
-	private final def name
-	private final def href
-	private final def server
+	private static final UTF8 = "UTF-8"
+	private final name
+	private final href
+	private final server
 
 	/* * * * * Constructor * * * * */
 
@@ -58,7 +58,7 @@ class DefaultCalendar implements com.niftyside.icloud.calendars.api.model.Calend
 
 	@Override
 	def getHref() {
-		return href
+		href
 	}
 
 	@Override

@@ -16,9 +16,9 @@ package com.niftyside.icloud.calendars.app.gui.event
 class CredentialEvent {
 	/* * * * * Variables * * * * */
 
-	public final def appleId
-	public final def password
-	public final def server
+	public final appleId
+	public final password
+	public final server
 
 	/* * * * * Constructor * * * * */
 

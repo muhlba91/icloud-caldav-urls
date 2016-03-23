@@ -1,4 +1,19 @@
 =============
+==  2.1.0  ==
+=============
+
+ * retrieving CardDAV Url via CardDAV request
+
+
+=============
+==  2.0.2  ==
+=============
+
+ * fixing NullPointerException when running call behind proxy
+ * minor code cleanup
+
+
+=============
 ==  2.0.1  ==
 =============
 

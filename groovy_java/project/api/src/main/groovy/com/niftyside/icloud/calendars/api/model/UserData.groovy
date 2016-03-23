@@ -13,7 +13,7 @@ package com.niftyside.icloud.calendars.api.model
  *
  * @version 2.0.0
  */
-public interface UserData {
+interface UserData {
 	/**
 	 * Gets the principal ID.
 	 *

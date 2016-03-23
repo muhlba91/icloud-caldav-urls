@@ -19,8 +19,8 @@ import com.niftyside.icloud.calendars.api.model.UserData
 class UserDataEvent {
 	/* * * * * Variables * * * * */
 
-	public final def userData
-	public final def exception
+	public final userData
+	public final exception
 
 	/* * * * * Constructor * * * * */
 

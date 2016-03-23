@@ -1,6 +1,6 @@
 package com.niftyside.icloud.calendars.api.client
 
-import org.apache.http.client.methods.HttpPost
+import org.apache.hc.client5.http.methods.HttpPost
 
 /**
  * PROPFIND method for {@link org.apache.http.client.HttpClient}.
@@ -11,9 +11,9 @@ import org.apache.http.client.methods.HttpPost
  * Time: 21:45
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class PropfindMethod extends HttpPost {
 	/* * * * * Constructor * * * * */
@@ -33,7 +33,7 @@ class PropfindMethod extends HttpPost {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMethod() {
+	String getMethod() {
 		"PROPFIND"
 	}
 }

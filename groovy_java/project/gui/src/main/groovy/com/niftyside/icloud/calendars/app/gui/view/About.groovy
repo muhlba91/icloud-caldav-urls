@@ -23,7 +23,7 @@ import java.awt.event.ActionEvent
 class About extends JDialog {
 	/* * * * * Variables * * * * */
 
-	private static final def ABOUT_TEXT = "<html><br>" +
+	private static final ABOUT_TEXT = "<html><br>" +
 			"<b>Version: " + Application.VERSION +
 			"</b><br>" +
 			"<b>API version: " + Calendars.VERSION +
@@ -73,8 +73,8 @@ class About extends JDialog {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addAboutLabel() {
-		def label = new JLabel("<html><br><b><font color='#009900'>About</font></b></html>");
+	private addAboutLabel() {
+		def label = new JLabel("<html><br><b><font color='#009900'>About</font></b></html>")
 		label.setHorizontalAlignment(SwingConstants.CENTER)
 		label.setFont(new Font("Serif", Font.PLAIN, 27))
 
@@ -86,7 +86,7 @@ class About extends JDialog {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addText() {
+	private addText() {
 		def view = new JPanel()
 
 		def msg = new JLabel(ABOUT_TEXT)
@@ -102,11 +102,11 @@ class About extends JDialog {
 	 *
 	 * @since 2.0.0
 	 */
-	private def addCloseButton() {
+	private addCloseButton() {
 		def closePanel = new JPanel()
 		def close = new JButton(new AbstractAction("Close") {
 			@Override
-			public void actionPerformed(final ActionEvent event) {
+			void actionPerformed(final ActionEvent event) {
 				dispose()
 			}
 		})

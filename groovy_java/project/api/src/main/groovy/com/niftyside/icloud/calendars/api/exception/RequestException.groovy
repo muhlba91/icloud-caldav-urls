@@ -33,7 +33,7 @@ class RequestException extends DefaultException {
 	/* * * * * Methods * * * * */
 
 	@Override
-	public String getMessage() {
-		"Request: " + super.getMessage()
+	String getMessage() {
+		"Request: " + super.message
 	}
 }

@@ -11,11 +11,11 @@ import com.niftyside.icloud.calendars.api.exception.XMLException
  * Time: 16:29
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
-public interface XMLReader {
+interface XMLReader {
 	/**
 	 * Parses a new XML string.
 	 *
@@ -36,6 +36,15 @@ public interface XMLReader {
 	 * @since 2.0.0
 	 */
 	def getPrincipal()
+
+	/**
+	 * Gets the CardDAV URL.
+	 *
+	 * @return the CardDAV URL
+	 *
+	 * @since 2.1.0
+	 */
+	def getCardDavUrl()
 
 	/**
 	 * Gets all {@link Calendar}s.

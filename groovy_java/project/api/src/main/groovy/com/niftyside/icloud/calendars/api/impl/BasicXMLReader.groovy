@@ -3,6 +3,7 @@ package com.niftyside.icloud.calendars.api.impl
 import com.niftyside.icloud.calendars.api.exception.CalendarException
 import com.niftyside.icloud.calendars.api.exception.XMLException
 import com.niftyside.icloud.calendars.api.model.XMLReader
+import org.w3c.dom.Node
 import org.xml.sax.InputSource
 import org.xml.sax.SAXException
 
@@ -20,24 +21,24 @@ import java.util.logging.Logger
  * Time: 16:42
  *
  * @author Daniel Muehlbachler
- * @copyright 2011-2013 Daniel Muehlbachler
+ * @copyright 2011-2016 Daniel Muehlbachler
  *
- * @version 2.0.0
+ * @version 2.1.0
  */
 class BasicXMLReader implements XMLReader {
 	/* * * * * Variables * * * * */
 
-	private def nodes
+	private nodes
 
 	/* * * * * Methods * * * * */
 
 	@Override
 	def setXML(String xml) throws XMLException {
-		if(xml == null || xml.isEmpty()) {
+		if(xml == null || xml.empty) {
 			throw new XMLException("No XML string given!", null)
 		}
 
-		nodes = new ArrayList<org.w3c.dom.Node>()
+		nodes = []
 
 		parseNodes(xml)
 	}
@@ -45,32 +46,27 @@ class BasicXMLReader implements XMLReader {
 	@Override
 	def getPrincipal() {
 		def nodeNames = ["propstat", "prop", "current-user-principal", "href"]
-		def node
-		def list
 
-		node = nodes.get(0)
-		nodeNames.each { searchNodeName ->
-			list = node.getChildNodes()
-			for(int i = 0; i < list.getLength(); i ++) {
-				if(list.item(i).getNodeName().equalsIgnoreCase(searchNodeName)) {
-					node = list.item(i)
-				}
-			}
-		}
-
-		def principal = node.getTextContent().split("/")
-
+		def principal = iterateThroughNodes(nodeNames)?.textContent?.split("/") ?: []
 		principal.length > 1 ? principal[1] : "N/A"
 	}
 
 	@Override
+	def getCardDavUrl() {
+		def nodeNames = ["propstat", "prop", "addressbook-home-set", "href"]
+
+		def url = iterateThroughNodes(nodeNames)?.textContent ?: ""
+		url?.empty ? "N/A" : url
+	}
+
+	@Override
 	def getCalendars(String server) {
-		def calendars = new ArrayList<com.niftyside.icloud.calendars.api.model.Calendar>()
+		def calendars = []
 
 		def calendar
 		nodes.each { node ->
 			calendar = parseCalendar(node, server)
-			if(calendar != null && ! calendar.getName().isEmpty()) {
+			if(calendar != null && !calendar.name.empty) {
 				calendars.add(calendar)
 			}
 		}
@@ -81,6 +77,30 @@ class BasicXMLReader implements XMLReader {
 	/* * * * * Private methods * * * * */
 
 	/**
+	 * Iterates through the nodes to find a specific one.
+	 *
+	 * @param nodeNames
+	 * 				the node names to iterate through
+	 * @return the last node
+	 *
+	 * @since 2.1.0
+	 */
+	private Node iterateThroughNodes(ArrayList<String> nodeNames) {
+		def node
+		def list
+		node = nodes.get(0)
+		nodeNames.each { searchNodeName ->
+			list = node.childNodes
+			for(int i = 0; i < list.length; i++) {
+				if(list.item(i).nodeName.equalsIgnoreCase(searchNodeName)) {
+					node = list.item(i)
+				}
+			}
+		}
+		node
+	}
+
+	/**
 	 * Parses the given XML string.
 	 *
 	 * @param xml
@@ -89,7 +109,7 @@ class BasicXMLReader implements XMLReader {
 	 *
 	 * @since 2.0.0
 	 */
-	private def parseNodes(String xml) throws XMLException {
+	private parseNodes(String xml) throws XMLException {
 		def doc
 		try {
 			def factory = DocumentBuilderFactory.newInstance()
@@ -99,11 +119,11 @@ class BasicXMLReader implements XMLReader {
 			throw new XMLException("Can't create XML builder!", e)
 		}
 
-		def root = doc.getDocumentElement()
+		def root = doc.documentElement
 		def list = root.getElementsByTagName("response")
 
 
-		for(int i = 0; i < list.getLength(); i ++) {
+		for(int i = 0; i < list.length; i++) {
 			nodes.add(list.item(i))
 		}
 	}
@@ -118,7 +138,7 @@ class BasicXMLReader implements XMLReader {
 	 *
 	 * @since 2.0.0
 	 */
-	private def parseCalendar(org.w3c.dom.Node node, String server) {
+	private parseCalendar(Node node, String server) {
 		def calendar = null
 		def nodeNames = ["propstat", "prop", "displayname"]
 		def analyzationNode = node
@@ -129,25 +149,28 @@ class BasicXMLReader implements XMLReader {
 		def href = "/"
 
 		nodeNames.each { searchNodeName ->
-			list = analyzationNode.getChildNodes()
-			for(int i = 0; i < list.getLength(); i ++) {
+			list = analyzationNode.childNodes
+			for(int i = 0; i < list.length; i++) {
 				tempNode = list.item(i)
-				if(tempNode.getNodeName().equalsIgnoreCase("href")) {
-					href = tempNode.getTextContent()
+				if(tempNode.nodeName.equalsIgnoreCase("href")) {
+					href = tempNode.textContent
 				}
-				if(tempNode.getNodeName().equalsIgnoreCase(searchNodeName)) {
+				if(tempNode.nodeName.equalsIgnoreCase(searchNodeName)) {
 					analyzationNode = tempNode
 				}
 			}
 		}
-		name = analyzationNode.getTextContent()
+		name = analyzationNode.textContent
+		if(name.empty || name.trim().equalsIgnoreCase(href)) {
+			name = "N/A"
+		}
 
 		try {
-			if(! href.equalsIgnoreCase("/")) {
+			if(!href.equalsIgnoreCase("/")) {
 				calendar = new DefaultCalendar(name, href, server)
 			}
 		} catch(CalendarException e) {
-			Logger.getLogger(Calendar.class.getName()).log(Level.SEVERE, e.getMessage(), e)
+			Logger.getLogger(Calendar.class.name).log(Level.SEVERE, e.message, e)
 		}
 
 		calendar
