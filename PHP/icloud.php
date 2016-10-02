@@ -69,8 +69,8 @@
 		curl_setopt($c, CURLOPT_HTTPHEADER, array("Depth: 1", "Content-Type: text/xml; charset='UTF-8'", "User-Agent: DAVKit/4.0.1 (730); CalendarStore/4.0.1 (973); iCal/4.0.1 (1374); Mac OS X/10.6.2 (10C540)"));
 		curl_setopt($c, CURLOPT_HEADER, 0);
 		//Set SSL
-		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, true);
 		//Set HTTP Auth
 		curl_setopt($c, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_setopt($c, CURLOPT_USERPWD, $user.":".$pw);
@@ -231,13 +231,13 @@
 ?>
 		</div>
 		<div id="copy">
-        	<div>Version v1.4 ; Script copyright &copy; 2011-2015 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
+        	<div>Version v1.4.1 ; Script copyright &copy; 2011-2016 by <a href='http://www.niftyside.com' target="_blank">NiftySide - Daniel M&uuml;hlbachler</a>
             &nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;
             <a href="http://www.icloud.com" target="_blank">iCloud</a> is a service provided by <a href="http://www.apple.com" target="_blank">Apple Inc.</a></div>
         </div>
 	</body>
 </html>
 
-<!-- Copyright (C) 2011-2015 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
+<!-- Copyright (C) 2011-2016 by NiftySide - Daniel Muehlbachler (http://www.niftyside.com) -->
 <!-- You are not allowed to remove the copyright notices anywhere in this document! -->
 <!-- Please read the dedicated README file for further information on the usage and copyright! -->
