@@ -77,7 +77,7 @@ class DefaultUserData implements UserData {
 
 	@Override
 	def getPrincipalUrl() {
-		"hhtps://" + server + "/" + principal + "/principal/"
+		"https://" + server + "/" + principal + "/principal/"
 	}
 
 	@Override
