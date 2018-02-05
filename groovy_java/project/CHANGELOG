@@ -1,47 +1,32 @@
-=============
-==  2.1.0  ==
-=============
+# Changelog
 
- * retrieving CardDAV Url via CardDAV request
+#### 2.0.3
 
+ - retrieving CardDAV Url via CardDAV request
 
-=============
-==  2.0.2  ==
-=============
+#### 2.0.2
 
- * fixing NullPointerException when running call behind proxy
- * minor code cleanup
+ - fixing NullPointerException when running call behind proxy
+ - minor code cleanup
 
+#### 2.0.1
 
-=============
-==  2.0.1  ==
-=============
+ - updated server list to support all available servers
 
- * updated server list to support all available servers
+#### 2.0.0
 
+ - changed code base to Groovy
+ - bugfixes
+ - included principal and CardDAV URL in table
+ - updated third-party libraries
 
-=============
-==  2.0.0  ==
-=============
+#### 1.2.1
 
- * changed code base to Groovy
- * bugfixes
- * included principal and CardDAV URL in table
- * updated third-party libraries
+ - code cleanup
+ - class restructuring
+ - some further enhancements
+ - added Gradle usage
 
+#### 1.2.0
 
-=============
-==  1.2.1  ==
-=============
-
- * code cleanup
- * class restructuring
- * some further enhancements
- * added Gradle usage
-
-
-===========
-==  1.2  ==
-===========
-
- * added correct CardDAV URL display for most application
+ - added correct CardDAV URL display for most application

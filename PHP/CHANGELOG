@@ -1,28 +1,19 @@
-=============
-==  1.4.1  ==
-=============
+# Changelog
 
- * fixed issue with SSL verification
+#### 1.4.1
 
+ - fixed issue with SSL verification
 
-===========
-==  1.4  ==
-===========
+#### 1.4.0
 
- * added CardDAV URL retrieval via CardDAV request
- * minor clean up
+ - added CardDAV URL retrieval via CardDAV request
+ - minor clean up
 
+#### 1.3.1
 
-===========
-==  1.3  ==
-===========
+ - added user agent identification
+ - support more iCloud servers
 
- * added user agent identification
- * support more iCloud servers
+#### 1.2
 
-
-===========
-==  1.2  ==
-===========
-
- * added correct CardDAV URL display for most application
+ - added correct CardDAV URL display for most application
