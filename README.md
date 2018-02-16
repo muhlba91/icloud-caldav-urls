@@ -3,6 +3,10 @@
 This software provides a possibility to gather all **CalDAV URLs** for usage in third-party clients, like Mozilla Thunderbird.
 Additionally, it also provides the - in most cases - correct **CardDAV URL**.
 
+## Project Status
+
+[![Build Status](https://travis-ci.org/muhlba91/icloud.svg?branch=master)](https://travis-ci.org/muhlba91/icloud)
+
 ## Usage
 
  - Create an *app-specific* password at https://appleid.apple.com

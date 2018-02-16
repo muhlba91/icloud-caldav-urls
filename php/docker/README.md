@@ -2,6 +2,10 @@
 
 This docker container uses PHP-FPM and nginx to deliver the PHP version of [iCloud calendar URLs](https://icloud.niftyside.com).
 
+## Project Status
+
+[![Build Status](https://travis-ci.org/muhlba91/icloud.svg?branch=master)](https://travis-ci.org/muhlba91/icloud)
+
 ## Donations
 
 If this software helps you to achieve your goal please consider at least a small donation.
